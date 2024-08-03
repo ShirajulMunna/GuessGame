@@ -8,6 +8,7 @@ public class AudioManager : MonoBehaviour
     public event EventHandler OnstartPressed;
     public static AudioManager instance;
     private AudioSource m_AudioSource;
+    private AudioSource m_AudioSource_1;
     public AudioClip click;
     public AudioClip cardClick;
     public AudioClip timeClick;
@@ -17,6 +18,8 @@ public class AudioManager : MonoBehaviour
         
         instance = this;
         m_AudioSource= GetComponent<AudioSource>();
+        m_AudioSource_1 = GetComponent<AudioSource>();
+
     }
 
     public void SingleClick() 
@@ -40,8 +43,10 @@ public class AudioManager : MonoBehaviour
         }
         else 
         {
-            //m_AudioSource.Stop();
-          //  m_AudioSource.PlayOneShot(quickTime);
+            Debug.Log("stop sound");
+            m_AudioSource.Stop();
+            m_AudioSource_1.PlayOneShot(quickTime);
+          
 
         }
 

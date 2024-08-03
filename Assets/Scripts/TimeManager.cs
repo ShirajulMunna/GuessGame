@@ -28,19 +28,24 @@ public class TimeManager : MonoBehaviour
         while (time > 0)
         {
             time--;
-            AudioManager.instance.SingleTimeClick(true);
+            if (time >= 5)
+            {
+                AudioManager.instance.SingleTimeClick(true);
+
+
+            }
+            else 
+            {
+             AudioManager.instance.SingleTimeClick(false);
+
+            }
 
             yield return new WaitForSeconds(1);
 
             timerTxt.text = time.ToString();
             Debug.Log(time);
 
-            if (time <= 5) 
-            {
-                AudioManager.instance.SingleTimeClick(false);
-
-                
-            }
+           
 
 
         }
