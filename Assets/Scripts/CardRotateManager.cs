@@ -2,10 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class CardRotateManager : MonoBehaviour
 {
     public event EventHandler OnRotationFinished;
+    public Sprite[] frontCard;
 
     public AudioManager audioManager;
     public List<GameObject> cards;  
@@ -21,12 +23,14 @@ public class CardRotateManager : MonoBehaviour
     public void FlipAllTheCardAtOnce(object sender, EventArgs e)
     {
         GameObject[] card = GameObject.FindGameObjectsWithTag("Card");
-
         cards=new List<GameObject>(card);
-
+        
         for (int i = 0; i < cards.Count; i++) 
         {
+            int val = Random.Range(0, frontCard.Length);
+            
             cards[i].GetComponent<BoxCollider2D>().enabled=false;
+            cards[i].GetComponent<Card>().faceSprite = frontCard[val];
         
         }
         StartCoroutine(RotateCard());

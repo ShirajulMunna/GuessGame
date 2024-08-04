@@ -8,12 +8,12 @@ public class AudioManager : MonoBehaviour
     public event EventHandler OnstartPressed;
     public static AudioManager instance;
     private AudioSource m_AudioSource;
-    public AudioSource m_AudioSource_1;
+    private AudioSource m_AudioSource_1;
     public AudioClip click;
     public AudioClip cardClick;
     public AudioClip timeClick;
     public AudioClip quickTime;
-    public bool isClosingTimeStarted;
+    public bool isClosingTimeStarted=true;
     void Start()
     {
         
@@ -43,16 +43,22 @@ public class AudioManager : MonoBehaviour
 
     public void ClosingTime() 
     {
-        if (!isClosingTimeStarted) 
+        if (isClosingTimeStarted)
         {
             m_AudioSource.Stop();
             m_AudioSource_1.PlayOneShot(quickTime);
-           
 
-        }
-       
-    
+        }       
+
+
     }
+    public void ClosingTimeOff()
+    {
+        m_AudioSource_1.Stop();
+      
+
+    }
+
 
 
 

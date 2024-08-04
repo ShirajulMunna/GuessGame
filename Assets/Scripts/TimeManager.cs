@@ -17,6 +17,7 @@ public class TimeManager : MonoBehaviour
 
     public void StartCoundown(object sender,EventArgs e)
     {
+       // AudioManager.instance.m_AudioSource.Stop();
         StartCoroutine(CountDown());
 
     }
@@ -28,21 +29,33 @@ public class TimeManager : MonoBehaviour
             yield return new WaitForSeconds(1);
 
             time--;
+            timerTxt.text = time.ToString();
+
             if (time > 5)
             {
                 AudioManager.instance.SingleTimeClick();
 
 
             }
-            else 
+            else if (time <= 5)
             {
+               
                 AudioManager.instance.ClosingTime();
                 AudioManager.instance.isClosingTimeStarted = true;
-                
+
+                if (time <= 0) 
+                {                   
+                    
+                    AudioManager.instance.ClosingTimeOff();
+                  
+
+                }
+
             }
+           
+          
 
 
-            timerTxt.text = time.ToString();
                       
 
         }

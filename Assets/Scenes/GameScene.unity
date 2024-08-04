@@ -1475,7 +1475,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: adf39b6b142494e4fa1080badbc7a824, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.445
+  m_Volume: 0.22
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1571,12 +1571,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f75c632b3d5d5d4bab9d30266b84da1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AudioSource_1: {fileID: 519420035}
   click: {fileID: 8300000, guid: 1eccfac642a401548a19c83b334e83da, type: 3}
   cardClick: {fileID: 8300000, guid: 2a18f243552009f4bb593b66e21b0a61, type: 3}
-  timeClick: {fileID: 8300000, guid: 994190373f3d0e74abf354de699f1fbc, type: 3}
-  quickTime: {fileID: 8300000, guid: 9060be6c880ef984297c651bfd5ef1cb, type: 3}
-  isClosingTimeStarted: 0
+  timeClick: {fileID: 8300000, guid: 5af97e3248fc84144b6ff719d1c4a8bf, type: 3}
+  quickTime: {fileID: 8300000, guid: d96e7afc44e09db4da8daa4ee392359d, type: 3}
+  isClosingTimeStarted: 1
 --- !u!82 &519420035
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1584,14 +1583,14 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.496
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -3178,6 +3177,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa55126e3f739343b3dc98e4f87b5d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  frontCard:
+  - {fileID: 21300000, guid: f0758478293bb3e49adf25cac61aa892, type: 3}
+  - {fileID: 21300000, guid: b4e76af9d6d31d9448643e9e253a844a, type: 3}
+  - {fileID: 21300000, guid: 22dac7e53e738414cb497a01424321fd, type: 3}
+  - {fileID: 21300000, guid: 129d558c6c04a1f4295c9cc10a127e10, type: 3}
+  - {fileID: 21300000, guid: 3e83e7bda71bc5e48b0ecdf494d7db65, type: 3}
+  - {fileID: 21300000, guid: ce1b65b0f311ba140a5727497ef7aba5, type: 3}
+  - {fileID: 21300000, guid: 6541ef10f5f80e64e8ca4d574124398a, type: 3}
+  - {fileID: 21300000, guid: 281aaa6278c357445ac445bea20442d8, type: 3}
   audioManager: {fileID: 519420034}
   cards: []
 --- !u!114 &1487750590
