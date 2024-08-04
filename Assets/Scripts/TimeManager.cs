@@ -13,13 +13,11 @@ public class TimeManager : MonoBehaviour
     {
         cardRotationManager.OnRotationFinished += StartCoundown;
 
-
     }
 
     public void StartCoundown(object sender,EventArgs e)
     {
         StartCoroutine(CountDown());
-
 
     }
 
@@ -27,26 +25,25 @@ public class TimeManager : MonoBehaviour
     {
         while (time > 0)
         {
+            yield return new WaitForSeconds(1);
+
             time--;
-            if (time >= 5)
+            if (time > 5)
             {
-                AudioManager.instance.SingleTimeClick(true);
+                AudioManager.instance.SingleTimeClick();
 
 
             }
             else 
             {
-             AudioManager.instance.SingleTimeClick(false);
-
+                AudioManager.instance.ClosingTime();
+                AudioManager.instance.isClosingTimeStarted = true;
+                
             }
 
-            yield return new WaitForSeconds(1);
 
             timerTxt.text = time.ToString();
-            Debug.Log(time);
-
-           
-
+                      
 
         }
 

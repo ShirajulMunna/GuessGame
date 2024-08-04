@@ -1473,7 +1473,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: fb3dd3cbcf2f095479ffbd084b66642c, type: 3}
+  m_audioClip: {fileID: 8300000, guid: adf39b6b142494e4fa1080badbc7a824, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.445
   m_Pitch: 1
@@ -1571,10 +1571,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f75c632b3d5d5d4bab9d30266b84da1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_AudioSource_1: {fileID: 519420035}
   click: {fileID: 8300000, guid: 1eccfac642a401548a19c83b334e83da, type: 3}
   cardClick: {fileID: 8300000, guid: 2a18f243552009f4bb593b66e21b0a61, type: 3}
   timeClick: {fileID: 8300000, guid: 994190373f3d0e74abf354de699f1fbc, type: 3}
   quickTime: {fileID: 8300000, guid: 9060be6c880ef984297c651bfd5ef1cb, type: 3}
+  isClosingTimeStarted: 0
 --- !u!82 &519420035
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1582,14 +1584,14 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.496
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
