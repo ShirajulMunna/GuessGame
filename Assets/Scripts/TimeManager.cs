@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
+    public event EventHandler OnTimeStopped;
     public int time;
     public TextMeshProUGUI timerTxt;
     public CardRotateManager cardRotationManager;
@@ -44,10 +45,12 @@ public class TimeManager : MonoBehaviour
                 AudioManager.instance.isClosingTimeStarted = true;
 
                 if (time <= 0) 
-                {                   
-                    
+                {
                     AudioManager.instance.ClosingTimeOff();
-                  
+                    OnTimeStopped?.Invoke(this, EventArgs.Empty);
+
+
+
 
                 }
 
