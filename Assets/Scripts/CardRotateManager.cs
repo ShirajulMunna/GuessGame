@@ -45,7 +45,7 @@ public class CardRotateManager : MonoBehaviour
 
         if (!facedUp)
         {
-            Debug.Log("first rotate");
+          
             for (int j = 0; j < cards.Count; j++) 
             {
                 AudioManager.instance.SingleCardClick();
@@ -76,7 +76,7 @@ public class CardRotateManager : MonoBehaviour
 
        if (facedUp)
        {
-            Debug.Log("second rotate");
+            
 
             for (int j = 0; j < cards.Count; j++)
             {
