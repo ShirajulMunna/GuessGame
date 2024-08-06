@@ -48,6 +48,7 @@ public class AudioManager : MonoBehaviour
             m_AudioSource.Stop();
             m_AudioSource_1.PlayOneShot(quickTime);
 
+           
         }       
 
 
