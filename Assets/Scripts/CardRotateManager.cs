@@ -77,11 +77,9 @@ public class CardRotateManager : MonoBehaviour
        if (facedUp)
        {
             
-
             for (int j = 0; j < cards.Count; j++)
             {
                 
-
                 for (float i = 0f; i <= 180f; i += 10f)
                 {
                     cards[j].transform.rotation = Quaternion.Euler(0f, i, 0f);
