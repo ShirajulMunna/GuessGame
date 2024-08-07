@@ -52,11 +52,27 @@ public class CardRotateManager : MonoBehaviour
             else if (gridValue == 6)
             {
                 suffleValue = Random.Range(0, frontCard.Length);
+                if (!shuffleValues.Contains(suffleValue) && shuffleValues.Count <= 8)
+                {
+                    shuffleValues.Add(suffleValue);
+                    shuffleValues_2.Add(suffleValue);
+                    mergeList = shuffleValues.Concat(shuffleValues_2).ToList();
+
+                }
+
 
             }
             else 
             {
-                suffleValue = Random.Range(0, frontCard.Length-6);
+                suffleValue = Random.Range(0, frontCard.Length);
+                if (!shuffleValues.Contains(suffleValue) && shuffleValues.Count <= 5)
+                {
+                    shuffleValues.Add(suffleValue);
+                    shuffleValues_2.Add(suffleValue);
+                    mergeList = shuffleValues.Concat(shuffleValues_2).ToList();
+
+                }
+
 
             }
 

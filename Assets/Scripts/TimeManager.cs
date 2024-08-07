@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using DG.Tweening;
 
 public class TimeManager : MonoBehaviour
 {
@@ -10,6 +12,8 @@ public class TimeManager : MonoBehaviour
     public int time;
     public TextMeshProUGUI timerTxt;
     public CardRotateManager cardRotationManager;
+    public RectTransform ready,start;
+    public GameObject spark, spark_2;
     void Start()
     {
         cardRotationManager.OnRotationFinished += StartCoundown;
@@ -18,8 +22,21 @@ public class TimeManager : MonoBehaviour
 
     public void StartCoundown(object sender,EventArgs e)
     {
-       // AudioManager.instance.m_AudioSource.Stop();
-        StartCoroutine(CountDown());
+        ready.DOLocalMoveY(43.00f, 0.1f).SetEase(Ease.InElastic).OnComplete(() =>
+        {
+      
+           
+            ready.DOShakePosition(duration: 1f, strength: 10f, vibrato: 10).OnComplete(() =>
+            {
+              
+                Invoke("AfterStartAnim", 0.2f);
+
+            });
+
+
+
+        });
+     
 
     }
 
@@ -50,8 +67,6 @@ public class TimeManager : MonoBehaviour
                     OnTimeStopped?.Invoke(this, EventArgs.Empty);
 
 
-
-
                 }
 
             }
@@ -64,4 +79,32 @@ public class TimeManager : MonoBehaviour
         }
 
     }
+
+    public void AfterStartAnim()
+    {
+        ready.DOLocalMoveX(1000f, 0.1f).SetEase(Ease.InBounce).OnComplete(() => {
+
+            start.DOLocalMoveX(4.00f, 0.1f).SetEase(Ease.InElastic).OnComplete(() =>
+            {
+                spark.SetActive(true);
+                spark_2.SetActive(true);
+                start.DOShakePosition(duration: 1f, strength: 10f, vibrato: 10).OnComplete(() =>
+                {
+
+                    //Invoke("AfterStartAnim", 0.2f);
+                     start.DOLocalMoveX(1000f, 0.1f).SetEase(Ease.InElastic);
+                    spark.SetActive(false);
+                    spark_2.SetActive(false);
+                    StartCoroutine(CountDown());
+
+
+                });
+
+            });
+
+        });
+
+    }
+
+   
 }

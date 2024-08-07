@@ -67,8 +67,8 @@ public class GameManager : MonoBehaviour
                 {
                     Debug.Log("matched");
                     fisrtObject.GetComponent<BoxCollider2D>().enabled = false;
-                    secondObject.GetComponent<BoxCollider2D>().enabled = false; 
-                    //matching sound
+                    secondObject.GetComponent<BoxCollider2D>().enabled = false;
+                    AudioManager.instance.MatchSound();
 
                 }
 

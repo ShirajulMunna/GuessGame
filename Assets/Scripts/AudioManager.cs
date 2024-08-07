@@ -13,6 +13,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip cardClick;
     public AudioClip timeClick;
     public AudioClip quickTime;
+    public AudioClip matchSound;
     public bool isClosingTimeStarted=true;
     void Start()
     {
@@ -57,6 +58,12 @@ public class AudioManager : MonoBehaviour
     {
         m_AudioSource_1.Stop();
       
+
+    }
+    public void MatchSound()
+    {
+        m_AudioSource.PlayOneShot(matchSound);
+
 
     }
 
