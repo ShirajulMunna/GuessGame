@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,7 +12,13 @@ public class CardRotateManager : MonoBehaviour
 
     public AudioManager audioManager;
     public List<GameObject> cards;  
+    public List<int> shuffleValues = new List<int>();
+    public List<int> shuffleValues_2 = new List<int>();
+    public List<int> mergeList= new List<int>();
+    public List<int> availAbleCardsNumber= new List<int>();
+
     private bool coroutineAllowed, facedUp;
+    public int gridValue=4;
     void Start()
     {
         coroutineAllowed = true;
@@ -27,17 +34,60 @@ public class CardRotateManager : MonoBehaviour
         
         for (int i = 0; i < cards.Count; i++) 
         {
-            int val = Random.Range(0, frontCard.Length);
-            
+            int suffleValue;
+
+            if (gridValue == 4)
+            {
+                suffleValue = Random.Range(0, frontCard.Length);
+
+                if (!shuffleValues.Contains(suffleValue) && shuffleValues.Count<=7) 
+                {
+                    shuffleValues.Add(suffleValue);
+                    shuffleValues_2.Add(suffleValue);
+                    mergeList=shuffleValues.Concat(shuffleValues_2).ToList();                   
+
+                }
+                
+            }
+            else if (gridValue == 6)
+            {
+                suffleValue = Random.Range(0, frontCard.Length);
+
+            }
+            else 
+            {
+                suffleValue = Random.Range(0, frontCard.Length-6);
+
+            }
+
             cards[i].GetComponent<BoxCollider2D>().enabled=false;
-            cards[i].GetComponent<Card>().faceSprite = frontCard[val];
+
+            Debug.Log(mergeList.Count);
+       
         
+        }
+
+        for (int i = 0; i < cards.Count; i++) 
+        {
+            availAbleCardsNumber.Add(i);
+        
+        }
+
+        for (int i = 0;i < cards.Count;i++) 
+        {
+            int randomIndex = Random.Range(0, availAbleCardsNumber.Count);
+            int cardValue = availAbleCardsNumber[randomIndex];
+            availAbleCardsNumber.RemoveAt(randomIndex);
+            Debug.Log("cardVal"+cardValue);
+            int cardVal = mergeList[i];
+            cards[cardValue].GetComponent<Card>().faceSprite = frontCard[cardVal];
+
         }
         StartCoroutine(RotateCard());
         
     }
 
-    private IEnumerator RotateCard()
+    private IEnumerator RotateCard() 
     {
         yield return new WaitForSeconds(1f);
 

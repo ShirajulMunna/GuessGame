@@ -6955,8 +6955,20 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ce1b65b0f311ba140a5727497ef7aba5, type: 3}
   - {fileID: 21300000, guid: 6541ef10f5f80e64e8ca4d574124398a, type: 3}
   - {fileID: 21300000, guid: 281aaa6278c357445ac445bea20442d8, type: 3}
+  - {fileID: 21300000, guid: 7df9d550f1a65aa498cd77a2adbc6b61, type: 3}
+  - {fileID: 21300000, guid: aeca1bf2735c696498488bacc20b709b, type: 3}
+  - {fileID: 21300000, guid: 75e4bf0408cb0d04b9803ef34716a1ea, type: 3}
+  - {fileID: 21300000, guid: 412b9ca06203e714481ef492ff494f68, type: 3}
+  - {fileID: 21300000, guid: 88f3642a3e5a53f4d9fe480124a61d42, type: 3}
+  - {fileID: 21300000, guid: 0f4c0eafae8f7094da1bd9af43b4df4a, type: 3}
+  - {fileID: 21300000, guid: cbfed888615143a4c907e4d3c4a859bd, type: 3}
+  - {fileID: 21300000, guid: bb5f94730f2bfc94d8f7714ff03bc76a, type: 3}
+  - {fileID: 21300000, guid: 141d0e39b24322e4085b77a1fe9c5a69, type: 3}
+  - {fileID: 21300000, guid: f6c17551b12b1ac4dabd730dc75c2d76, type: 3}
   audioManager: {fileID: 519420034}
   cards: []
+  shuffleValues: 
+  gridValue: 4
 --- !u!114 &1487750590
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -49,7 +49,6 @@ public class Card : MonoBehaviour
         GameManager.Instance.ImageCheck();
 
       
-
     }
 
     private IEnumerator RotateCard()
