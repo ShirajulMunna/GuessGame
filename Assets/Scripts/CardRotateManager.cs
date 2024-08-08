@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 
 public class CardRotateManager : MonoBehaviour
 {
+    public static CardRotateManager instance;
     public event EventHandler OnRotationFinished;
     public Sprite[] frontCard;
 
@@ -21,6 +22,7 @@ public class CardRotateManager : MonoBehaviour
     public int gridValue=4;
     void Start()
     {
+        instance = this;
         coroutineAllowed = true;
         facedUp = false;
         audioManager.OnstartPressed += FlipAllTheCardAtOnce;
@@ -73,13 +75,10 @@ public class CardRotateManager : MonoBehaviour
 
                 }
 
-
             }
 
             cards[i].GetComponent<BoxCollider2D>().enabled=false;
-
-            Debug.Log(mergeList.Count);
-       
+  
         
         }
 
@@ -94,7 +93,6 @@ public class CardRotateManager : MonoBehaviour
             int randomIndex = Random.Range(0, availAbleCardsNumber.Count);
             int cardValue = availAbleCardsNumber[randomIndex];
             availAbleCardsNumber.RemoveAt(randomIndex);
-            Debug.Log("cardVal"+cardValue);
             int cardVal = mergeList[i];
             cards[cardValue].GetComponent<Card>().faceSprite = frontCard[cardVal];
 
@@ -166,12 +164,17 @@ public class CardRotateManager : MonoBehaviour
 
         facedUp = !facedUp;
         OnRotationFinished?.Invoke(this, EventArgs.Empty);
+       
+
+    }
+
+    public void EnableCardCollider(bool isEnable) 
+    {
         for (int i = 0; i < cards.Count; i++)
         {
-            cards[i].GetComponent<BoxCollider2D>().enabled = true;
+            cards[i].GetComponent<BoxCollider2D>().enabled = isEnable;
 
         }
-
 
 
     }

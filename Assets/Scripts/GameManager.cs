@@ -1,8 +1,11 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,22 +19,66 @@ public class GameManager : MonoBehaviour
     public bool isMatch;
     public string imageName;
     public int checkCounter;
-
+    public RectTransform gameOver,scorePanel;
+    public int hitCount,bestScore;
+    public TextMeshProUGUI myHitCountTxt,bestscore,myScoreGameOverUI,bestScoregameOverUI;
+    public GameObject gameOverPanel,grid;
     void Start()
     {
+        bestscore.text = PlayerPrefs.GetInt("Best_Score", 0).ToString();
+        bestScoregameOverUI.text = PlayerPrefs.GetInt("Best_Score", 0).ToString();
         Instance = this;
         GetComponent<TimeManager>().OnTimeStopped += OpenResultPanel;
         OnCheckComplete += BooleanReset;
-
-
 
     }
 
     public void OpenResultPanel(object sender, EventArgs e) 
     {
         Debug.Log("Game time finished");
-       
-    
+        AudioManager.instance.GameOver();
+        CardRotateManager.instance.EnableCardCollider(false);
+        gameOver.DOLocalMoveX(4.00f, 0.1f).SetEase(Ease.InElastic).OnComplete(() =>
+        {
+
+            gameOver.DOShakePosition(duration: 1f, strength: 10f, vibrato: 10).OnComplete(() =>
+            {
+
+                Invoke("AfterStartAnim", 0.2f);
+
+            });
+
+
+
+        });
+
+
+    }
+
+    public void AfterStartAnim()
+    {
+        gameOver.DOLocalMoveX(1000f, 0.1f).SetEase(Ease.InElastic).OnComplete(() =>
+        {
+            grid.SetActive(false);
+            gameOverPanel.SetActive(true);
+            scorePanel.DOLocalMoveY(43.00f, 0.1f).SetEase(Ease.InElastic).OnComplete(() =>
+            {
+
+                scorePanel.DOShakePosition(duration: 1f, strength: 10f, vibrato: 10).OnComplete(() =>
+                {
+
+                  
+
+                });
+
+
+
+            });
+
+
+
+        });
+
     }
 
     public void BooleanReset(object sender, EventArgs e) 
@@ -65,6 +112,18 @@ public class GameManager : MonoBehaviour
                 isMatch = true;
                 if (checkCounter == 2)
                 {
+                    hitCount++;
+                    bestScore = hitCount;
+                    bestscore.text=hitCount.ToString();
+                    myHitCountTxt.text = hitCount.ToString();
+                    myScoreGameOverUI.text = hitCount.ToString();
+
+                    if (bestScore > PlayerPrefs.GetInt("Best_Score", 0)) 
+                    {
+                        PlayerPrefs.SetInt("Best_Score", bestScore);
+
+
+                    }
                     Debug.Log("matched");
                     fisrtObject.GetComponent<BoxCollider2D>().enabled = false;
                     secondObject.GetComponent<BoxCollider2D>().enabled = false;
@@ -94,7 +153,7 @@ public class GameManager : MonoBehaviour
     }
     public IEnumerator UnmatchedRotate(bool isFaceUp)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.3f);
         if (isFaceUp)
         {
             Debug.Log("Unmatched rotate");
@@ -118,6 +177,12 @@ public class GameManager : MonoBehaviour
         checkCounter = 0;
       
 
+    }
+
+    public void SceneRelode() 
+    {
+        SceneManager.LoadScene(0);
+    
     }
 
 

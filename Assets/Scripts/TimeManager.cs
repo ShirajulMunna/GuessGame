@@ -22,6 +22,7 @@ public class TimeManager : MonoBehaviour
 
     public void StartCoundown(object sender,EventArgs e)
     {
+        AudioManager.instance.BackGroundSoundOff();
         ready.DOLocalMoveY(43.00f, 0.1f).SetEase(Ease.InElastic).OnComplete(() =>
         {
       
@@ -29,7 +30,7 @@ public class TimeManager : MonoBehaviour
             ready.DOShakePosition(duration: 1f, strength: 10f, vibrato: 10).OnComplete(() =>
             {
               
-                Invoke("AfterStartAnim", 0.2f);
+                Invoke("AfterStartAnimFinish", 0.2f);
 
             });
 
@@ -39,7 +40,31 @@ public class TimeManager : MonoBehaviour
      
 
     }
+    public void AfterStartAnimFinish()
+    {
+        ready.DOLocalMoveX(1000f, 0.1f).SetEase(Ease.InBounce).OnComplete(() => {
 
+            start.DOLocalMoveX(4.00f, 0.1f).SetEase(Ease.InElastic).OnComplete(() =>
+            {
+                spark.SetActive(true);
+                spark_2.SetActive(true);
+                start.DOShakePosition(duration: 1f, strength: 10f, vibrato: 10).OnComplete(() =>
+                {
+                    start.DOLocalMoveX(1000f, 0.1f).SetEase(Ease.InElastic).OnComplete(() => {
+                        CardRotateManager.instance.EnableCardCollider(true);
+                    });
+                    spark.SetActive(false);
+                    spark_2.SetActive(false);
+                    StartCoroutine(CountDown());
+
+
+                });
+
+            });
+
+        });
+
+    }
     public IEnumerator CountDown()
     {
         while (time > 0)
@@ -56,8 +81,7 @@ public class TimeManager : MonoBehaviour
 
             }
             else if (time <= 5)
-            {
-               
+            {               
                 AudioManager.instance.ClosingTime();
                 AudioManager.instance.isClosingTimeStarted = true;
 
@@ -66,45 +90,15 @@ public class TimeManager : MonoBehaviour
                     AudioManager.instance.ClosingTimeOff();
                     OnTimeStopped?.Invoke(this, EventArgs.Empty);
 
-
                 }
 
             }
-           
-          
-
-
-                      
+                              
 
         }
 
     }
 
-    public void AfterStartAnim()
-    {
-        ready.DOLocalMoveX(1000f, 0.1f).SetEase(Ease.InBounce).OnComplete(() => {
-
-            start.DOLocalMoveX(4.00f, 0.1f).SetEase(Ease.InElastic).OnComplete(() =>
-            {
-                spark.SetActive(true);
-                spark_2.SetActive(true);
-                start.DOShakePosition(duration: 1f, strength: 10f, vibrato: 10).OnComplete(() =>
-                {
-
-                    //Invoke("AfterStartAnim", 0.2f);
-                     start.DOLocalMoveX(1000f, 0.1f).SetEase(Ease.InElastic);
-                    spark.SetActive(false);
-                    spark_2.SetActive(false);
-                    StartCoroutine(CountDown());
-
-
-                });
-
-            });
-
-        });
-
-    }
-
+   
    
 }

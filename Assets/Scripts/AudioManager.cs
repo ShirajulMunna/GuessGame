@@ -14,6 +14,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip timeClick;
     public AudioClip quickTime;
     public AudioClip matchSound;
+    public AudioClip gameOver;
     public bool isClosingTimeStarted=true;
     void Start()
     {
@@ -28,6 +29,7 @@ public class AudioManager : MonoBehaviour
     {
         m_AudioSource.PlayOneShot(click);
         OnstartPressed?.Invoke(this, EventArgs.Empty);
+        
     
     }
     public void SingleCardClick()
@@ -67,6 +69,17 @@ public class AudioManager : MonoBehaviour
 
     }
 
+    public void BackGroundSoundOff() 
+    {
+            m_AudioSource.Stop();
+
+    }
+
+    public void GameOver() 
+    {
+        m_AudioSource.PlayOneShot(gameOver);
+    
+    }
 
 
 
