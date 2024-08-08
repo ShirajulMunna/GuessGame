@@ -10,8 +10,11 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+
     public event EventHandler OnCheckComplete;
     public event EventHandler OnUnmatchRotationFinish;
+    public event EventHandler OnControllButtonPressed;
+
     public bool firstGuess, secondGuess;
     public string firstImageName, secondImageName;
     public GameObject fisrtObject, secondObject;
@@ -22,7 +25,8 @@ public class GameManager : MonoBehaviour
     public RectTransform gameOver,scorePanel;
     public int hitCount,bestScore;
     public TextMeshProUGUI myHitCountTxt,bestscore,myScoreGameOverUI,bestScoregameOverUI;
-    public GameObject gameOverPanel,grid;
+    public GameObject gameOverPanel,grid, ControllPanel;
+    public int time_1,time_2,time_3;
     void Start()
     {
         bestscore.text = PlayerPrefs.GetInt("Best_Score", 0).ToString();
@@ -30,9 +34,18 @@ public class GameManager : MonoBehaviour
         Instance = this;
         GetComponent<TimeManager>().OnTimeStopped += OpenResultPanel;
         OnCheckComplete += BooleanReset;
-
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F12)) 
+        {
+            ControllPanel.SetActive(true);
+            OnControllButtonPressed?.Invoke(this, EventArgs.Empty);
+
+
+        }
+    }
     public void OpenResultPanel(object sender, EventArgs e) 
     {
         Debug.Log("Game time finished");
@@ -40,7 +53,6 @@ public class GameManager : MonoBehaviour
         CardRotateManager.instance.EnableCardCollider(false);
         gameOver.DOLocalMoveX(4.00f, 0.1f).SetEase(Ease.InElastic).OnComplete(() =>
         {
-
             gameOver.DOShakePosition(duration: 1f, strength: 10f, vibrato: 10).OnComplete(() =>
             {
 
@@ -48,34 +60,22 @@ public class GameManager : MonoBehaviour
 
             });
 
-
-
         });
 
-
     }
-
     public void AfterStartAnim()
     {
         gameOver.DOLocalMoveX(1000f, 0.1f).SetEase(Ease.InElastic).OnComplete(() =>
         {
+            AudioManager.instance.GameStart(0);
+
             grid.SetActive(false);
             gameOverPanel.SetActive(true);
             scorePanel.DOLocalMoveY(43.00f, 0.1f).SetEase(Ease.InElastic).OnComplete(() =>
             {
-
-                scorePanel.DOShakePosition(duration: 1f, strength: 10f, vibrato: 10).OnComplete(() =>
-                {
-
-                  
-
-                });
-
-
-
+                scorePanel.DOShakePosition(duration: 1f, strength: 10f, vibrato: 10);
+               
             });
-
-
 
         });
 
@@ -84,8 +84,7 @@ public class GameManager : MonoBehaviour
     public void BooleanReset(object sender, EventArgs e) 
     {
         firstGuess = false;
-        secondGuess = false;
-      
+        secondGuess = false;      
     
     }
 
@@ -117,11 +116,11 @@ public class GameManager : MonoBehaviour
                     bestscore.text=hitCount.ToString();
                     myHitCountTxt.text = hitCount.ToString();
                     myScoreGameOverUI.text = hitCount.ToString();
+                    bestScoregameOverUI.text = PlayerPrefs.GetInt("Best_Score", 0).ToString();
 
                     if (bestScore > PlayerPrefs.GetInt("Best_Score", 0)) 
                     {
                         PlayerPrefs.SetInt("Best_Score", bestScore);
-
 
                     }
                     Debug.Log("matched");
@@ -142,13 +141,8 @@ public class GameManager : MonoBehaviour
                     //Unmatching sound
 
                 }
-
-            }
-          
-
-        }
-
-      
+            }          
+        }     
 
     }
     public IEnumerator UnmatchedRotate(bool isFaceUp)
@@ -168,7 +162,6 @@ public class GameManager : MonoBehaviour
                     fisrtObject.GetComponent<SpriteRenderer>().sprite=fisrtObject.GetComponent<Card>().backSprite;
                     secondObject.GetComponent<SpriteRenderer>().sprite = fisrtObject.GetComponent<Card>().backSprite;
                     OnUnmatchRotationFinish?.Invoke(this, EventArgs.Empty);
-
                   
                 }
                 yield return new WaitForSeconds(0.01f);
@@ -176,11 +169,11 @@ public class GameManager : MonoBehaviour
         }
         checkCounter = 0;
       
-
     }
 
-    public void SceneRelode() 
+    public void SceneReload() 
     {
+        AudioManager.instance.SingleCardClick();
         SceneManager.LoadScene(0);
     
     }

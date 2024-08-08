@@ -15,6 +15,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip quickTime;
     public AudioClip matchSound;
     public AudioClip gameOver;
+    public AudioClip[] gameStart;
     public bool isClosingTimeStarted=true;
     void Start()
     {
@@ -24,7 +25,6 @@ public class AudioManager : MonoBehaviour
         m_AudioSource_1 = GetComponent<AudioSource>();
 
     }
-
     public void SingleClick() 
     {
         m_AudioSource.PlayOneShot(click);
@@ -43,7 +43,6 @@ public class AudioManager : MonoBehaviour
              
 
     }
-
     public void ClosingTime() 
     {
         if (isClosingTimeStarted)
@@ -72,6 +71,12 @@ public class AudioManager : MonoBehaviour
     public void BackGroundSoundOff() 
     {
             m_AudioSource.Stop();
+
+    }
+
+    public void GameStart(int index)
+    {
+        m_AudioSource.PlayOneShot(gameStart[index]);
 
     }
 

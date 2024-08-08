@@ -8,7 +8,9 @@ using DG.Tweening;
 
 public class TimeManager : MonoBehaviour
 {
+    public static TimeManager Instance;
     public event EventHandler OnTimeStopped;
+
     public int time;
     public TextMeshProUGUI timerTxt;
     public CardRotateManager cardRotationManager;
@@ -16,20 +18,34 @@ public class TimeManager : MonoBehaviour
     public GameObject spark, spark_2;
     void Start()
     {
+        Instance = this;
         cardRotationManager.OnRotationFinished += StartCoundown;
+        time = PlayerPrefs.GetInt("Time", GameManager.Instance.time_1);
+        timerTxt.text = time.ToString();
+
 
     }
+
+    public void SetTime(int time) 
+    {
+        this.time = time;
+        timerTxt.text = time.ToString();
+
+
+    }
+
 
     public void StartCoundown(object sender,EventArgs e)
     {
         AudioManager.instance.BackGroundSoundOff();
         ready.DOLocalMoveY(43.00f, 0.1f).SetEase(Ease.InElastic).OnComplete(() =>
         {
-      
-           
+            AudioManager.instance.GameStart(0);
+
+
+
             ready.DOShakePosition(duration: 1f, strength: 10f, vibrato: 10).OnComplete(() =>
             {
-              
                 Invoke("AfterStartAnimFinish", 0.2f);
 
             });
@@ -46,6 +62,8 @@ public class TimeManager : MonoBehaviour
 
             start.DOLocalMoveX(4.00f, 0.1f).SetEase(Ease.InElastic).OnComplete(() =>
             {
+                AudioManager.instance.GameStart(1);
+
                 spark.SetActive(true);
                 spark_2.SetActive(true);
                 start.DOShakePosition(duration: 1f, strength: 10f, vibrato: 10).OnComplete(() =>
