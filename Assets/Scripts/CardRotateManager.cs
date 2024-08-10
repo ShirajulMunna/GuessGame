@@ -10,7 +10,6 @@ public class CardRotateManager : MonoBehaviour
     public static CardRotateManager instance;
     public event EventHandler OnRotationFinished;
     public Sprite[] frontCard;
-
     public AudioManager audioManager;
     public List<GameObject> cards;  
     public List<int> shuffleValues = new List<int>();
@@ -22,6 +21,25 @@ public class CardRotateManager : MonoBehaviour
     public int gridValue=4;
     void Start()
     {
+        int gridNumber = PlayerPrefs.GetInt("Grid", 1);
+
+        if (gridNumber == 1)
+        {
+            gridValue = 4;
+
+        }
+        else if (gridNumber == 2)
+        {
+            gridValue = 6;
+
+
+        }
+
+        else if (gridNumber == 3) 
+        {
+            gridValue = 12;
+        
+        }
         instance = this;
         coroutineAllowed = true;
         facedUp = false;
@@ -29,6 +47,13 @@ public class CardRotateManager : MonoBehaviour
 
     }
 
+    public void SetGrid(int grid)
+    {
+        this.gridValue = grid;
+        
+
+
+    }
     public void FlipAllTheCardAtOnce(object sender, EventArgs e)
     {
         GameObject[] card = GameObject.FindGameObjectsWithTag("Card");
@@ -64,7 +89,7 @@ public class CardRotateManager : MonoBehaviour
 
 
             }
-            else 
+            else if(gridValue==12)
             {
                 suffleValue = Random.Range(0, frontCard.Length);
                 if (!shuffleValues.Contains(suffleValue) && shuffleValues.Count <= 5)
