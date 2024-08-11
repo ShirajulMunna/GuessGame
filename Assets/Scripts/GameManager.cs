@@ -14,9 +14,10 @@ public class GameManager : MonoBehaviour
     public event EventHandler OnCheckComplete;
     public event EventHandler OnUnmatchRotationFinish;
     public event EventHandler OnControllButtonPressed;
+   // public event EventHandler OnAllItemHit;
 
     public bool firstGuess, secondGuess;
-    public bool isMatch;
+    public bool isMatch,isGameStart;
 
     public GameObject gameOverPanel, grid, ControllPanel;
     public GameObject fisrtObject, secondObject;
@@ -72,13 +73,19 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F12)) 
+        if (!isGameStart) 
         {
-            ControllPanel.SetActive(true);
-            OnControllButtonPressed?.Invoke(this, EventArgs.Empty);
+            if (Input.GetKeyDown(KeyCode.F12))
+            {
+                ControllPanel.SetActive(true);
+                OnControllButtonPressed?.Invoke(this, EventArgs.Empty);
+                isGameStart = true;
 
+
+            }
 
         }
+      
     }
 
     public void Settarget(int target) 
@@ -143,6 +150,7 @@ public class GameManager : MonoBehaviour
 
     }
 
+
     public void BooleanReset(object sender, EventArgs e) 
     {
         firstGuess = false;
@@ -203,6 +211,14 @@ public class GameManager : MonoBehaviour
 
 
                     Debug.Log("matched");
+
+                    if (hitCount == target) 
+                    {
+                       // AllItemHitResultPanel();
+                        TimeManager.Instance.time = 1;
+
+
+                    }
 
                   
                     fisrtObject.GetComponent<BoxCollider2D>().enabled = false;

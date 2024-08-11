@@ -28,9 +28,11 @@ public class Card : MonoBehaviour
     {
         facedUp=false;
         isClickable=true;
-        
+        GetComponent<BoxCollider2D>().enabled = true;
+
+
     }
-  
+
     private void OnMouseDown()
     {
         if (isClickable) 
@@ -38,6 +40,7 @@ public class Card : MonoBehaviour
             AudioManager.instance.SingleCardClick();
             GameManager.Instance.imageName = GetComponent<Card>().faceSprite.name;
             GameManager.Instance.singleObject = this.gameObject;
+            GetComponent<BoxCollider2D>().enabled = false;
             if (coroutineAllowed)
             {
                 StartCoroutine(RotateCard());
@@ -66,19 +69,7 @@ public class Card : MonoBehaviour
             }
          
         }
-        else if (facedUp)
-        {
-            
-            for (float i = 180f; i >= 0f; i -= 10f)
-            {
-                transform.rotation = Quaternion.Euler(0f, i, 0f);
-                if (i == 90f)
-                {
-                    rend.sprite = backSprite;
-                }
-                yield return new WaitForSeconds(0.01f);
-            }
-        }
+      
         coroutineAllowed = true;
         facedUp = !facedUp;
     }

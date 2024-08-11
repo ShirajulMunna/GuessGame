@@ -11,6 +11,7 @@ public class CardRotateManager : MonoBehaviour
     public static CardRotateManager instance;
     public event EventHandler OnRotationFinished;
     public Sprite[] frontCard;
+    public Sprite[] FrontCard_1;
     public AudioManager audioManager;
     public List<GameObject> cards;  
     public List<int> shuffleValues = new List<int>();
@@ -57,6 +58,7 @@ public class CardRotateManager : MonoBehaviour
     }
     public void FlipAllTheCardAtOnce(object sender, EventArgs e)
     {
+        GameManager.Instance.isGameStart = true;
         GameObject[] card = GameObject.FindGameObjectsWithTag("Card");
         cards=new List<GameObject>(card);
         
@@ -120,7 +122,18 @@ public class CardRotateManager : MonoBehaviour
             int cardValue = availAbleCardsNumber[randomIndex];
             availAbleCardsNumber.RemoveAt(randomIndex);
             int cardVal = mergeList[i];
-            cards[cardValue].GetComponent<Card>().faceSprite = frontCard[cardVal];
+            if (gridValue == 4)
+            {
+                Debug.Log("grid entry 4");
+                cards[cardValue].GetComponent<Card>().faceSprite = FrontCard_1[cardVal];
+
+            }
+            else 
+            {
+                cards[cardValue].GetComponent<Card>().faceSprite = frontCard[cardVal];
+
+
+            }
 
         }
         StartCoroutine(RotateCard());
@@ -179,7 +192,7 @@ public class CardRotateManager : MonoBehaviour
 
                         cards[j].GetComponent<SpriteRenderer>().sprite = cards[j].GetComponent<Card>().backSprite;
                     }
-                    yield return new WaitForSeconds(0.00001f);
+                   // yield return new WaitForSeconds(0.00001f);
 
                 }
 
