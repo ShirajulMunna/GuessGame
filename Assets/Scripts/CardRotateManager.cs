@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -25,7 +26,7 @@ public class CardRotateManager : MonoBehaviour
 
         if (gridNumber == 1)
         {
-            gridValue = 4;
+            gridValue = 12;
 
         }
         else if (gridNumber == 2)
@@ -37,7 +38,7 @@ public class CardRotateManager : MonoBehaviour
 
         else if (gridNumber == 3) 
         {
-            gridValue = 12;
+            gridValue = 4;
         
         }
         instance = this;
@@ -147,7 +148,7 @@ public class CardRotateManager : MonoBehaviour
                         
                         cards[j].GetComponent<SpriteRenderer>().sprite = cards[j].GetComponent<Card>().faceSprite;
                     }
-                    yield return new WaitForSeconds(0.0001f);
+                    yield return new WaitForSeconds(0.00001f);
                 }
 
             }
@@ -178,7 +179,7 @@ public class CardRotateManager : MonoBehaviour
 
                         cards[j].GetComponent<SpriteRenderer>().sprite = cards[j].GetComponent<Card>().backSprite;
                     }
-                    yield return new WaitForSeconds(0.0001f);
+                    yield return new WaitForSeconds(0.00001f);
 
                 }
 
@@ -198,6 +199,17 @@ public class CardRotateManager : MonoBehaviour
         for (int i = 0; i < cards.Count; i++)
         {
             cards[i].GetComponent<BoxCollider2D>().enabled = isEnable;
+
+        }
+
+
+    }
+
+    public void MouseClickable(bool isClickable) 
+    {
+        for (int i = 0; i < cards.Count; i++)
+        {
+            cards[i].GetComponent<Card>().isClickable = isClickable;
 
         }
 

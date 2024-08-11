@@ -39,9 +39,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Instance = this;
-
         int gridValue = PlayerPrefs.GetInt("Grid", 1);
-
         if (gridValue == 1)
         {
             grids[0].gameObject.SetActive(true);
@@ -220,6 +218,7 @@ public class GameManager : MonoBehaviour
                 if (checkCounter == 2)
                 {
                     Debug.Log("Unmatched");
+                    CardRotateManager.instance.MouseClickable(false);
                     StartCoroutine(UnmatchedRotate(true));
                     //Unmatching sound
 
@@ -244,14 +243,17 @@ public class GameManager : MonoBehaviour
                 {
                     fisrtObject.GetComponent<SpriteRenderer>().sprite=fisrtObject.GetComponent<Card>().backSprite;
                     secondObject.GetComponent<SpriteRenderer>().sprite = fisrtObject.GetComponent<Card>().backSprite;
-                    OnUnmatchRotationFinish?.Invoke(this, EventArgs.Empty);
+
+                   // OnUnmatchRotationFinish?.Invoke(this, EventArgs.Empty);
                   
                 }
                 yield return new WaitForSeconds(0.01f);
             }
         }
         checkCounter = 0;
-      
+        OnUnmatchRotationFinish?.Invoke(this, EventArgs.Empty);
+
+
     }
 
     public void SceneReload() 

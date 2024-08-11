@@ -66,9 +66,9 @@ public class SliderController : MonoBehaviour
             gameManager.grids[1].gameObject.SetActive(false);
             gameManager.grids[2].gameObject.SetActive(false);
 
-            CardRotateManager.instance.SetGrid(4);
-
-
+            CardRotateManager.instance.SetGrid(12);
+            gameManager.Settarget(gameManager.target_1);
+            PlayerPrefs.SetInt("Target", GameManager.Instance.target_1);
             PlayerPrefs.SetInt("Grid", 1);
 
         }
@@ -83,8 +83,8 @@ public class SliderController : MonoBehaviour
             gameManager.grids[2].gameObject.SetActive(false);
 
             CardRotateManager.instance.SetGrid(6);
-
-
+            gameManager.Settarget(gameManager.target_2);
+            PlayerPrefs.SetInt("Target", GameManager.Instance.target_2);
             PlayerPrefs.SetInt("Grid", 2);
 
 
@@ -99,9 +99,11 @@ public class SliderController : MonoBehaviour
             gameManager.grids[1].gameObject.SetActive(false);
             gameManager.grids[2].gameObject.SetActive(true);
 
-            CardRotateManager.instance.SetGrid(12);
+            CardRotateManager.instance.SetGrid(4);
+            gameManager.Settarget(gameManager.target_3);
 
 
+            PlayerPrefs.SetInt("Target", GameManager.Instance.target_3);
             PlayerPrefs.SetInt("Grid", 3);
 
 

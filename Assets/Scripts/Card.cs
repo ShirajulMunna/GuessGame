@@ -13,7 +13,7 @@ public class Card : MonoBehaviour
 
     public bool coroutineAllowed, facedUp;
     public string imageName;
-    public bool isUnmatched;
+    public bool isUnmatched,isClickable=true;
    
     void Start()
     {
@@ -26,19 +26,26 @@ public class Card : MonoBehaviour
     }
     public void BooleanReset(object sender, EventArgs e) 
     {
-        facedUp=false;   
+        facedUp=false;
+        isClickable=true;
+        
     }
   
     private void OnMouseDown()
     {
-        AudioManager.instance.SingleCardClick();
-        GameManager.Instance.imageName = GetComponent<Card>().faceSprite.name;
-        GameManager.Instance.singleObject = this.gameObject;
-        if (coroutineAllowed)
+        if (isClickable) 
         {
-            StartCoroutine(RotateCard());
+            AudioManager.instance.SingleCardClick();
+            GameManager.Instance.imageName = GetComponent<Card>().faceSprite.name;
+            GameManager.Instance.singleObject = this.gameObject;
+            if (coroutineAllowed)
+            {
+                StartCoroutine(RotateCard());
+            }
+            GameManager.Instance.ImageCheck();
+
         }
-        GameManager.Instance.ImageCheck();
+      
       
     }
 
