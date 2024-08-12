@@ -104,8 +104,7 @@ public class GameManager : MonoBehaviour
     }
     public void OpenResultPanel(object sender, EventArgs e) 
     {
-        int gridValue = PlayerPrefs.GetInt("Grid", 1);
-        grids[gridValue].gameObject.SetActive(false);
+     
 
         Debug.Log("Game time finished");
         AudioManager.instance.GameOver();
