@@ -1,4 +1,5 @@
 using DG.Tweening;
+using DG.Tweening.Core.Easing;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -103,23 +104,13 @@ public class GameManager : MonoBehaviour
     }
     public void OpenResultPanel(object sender, EventArgs e) 
     {
+        int gridValue = PlayerPrefs.GetInt("Grid", 1);
+        grids[gridValue].gameObject.SetActive(false);
+
         Debug.Log("Game time finished");
         AudioManager.instance.GameOver();
         CardRotateManager.instance.EnableCardCollider(false);
-
-        if (particleNumber == 1)
-        {
-            particles[0].SetActive(true);
-            particles[1].SetActive(false);
-
-
-        }
-        else if (particleNumber == 2)
-        {
-            particles[0].SetActive(false);
-            particles[1].SetActive(true);
-
-        }
+        
         gameOver.DOLocalMoveX(4.00f, 0.1f).SetEase(Ease.InElastic).OnComplete(() =>
         {
             gameOver.DOShakePosition(duration: 1f, strength: 10f, vibrato: 10).OnComplete(() =>
@@ -130,6 +121,7 @@ public class GameManager : MonoBehaviour
             });
 
         });
+     
 
     }
     public void AfterStartAnim()
@@ -143,7 +135,20 @@ public class GameManager : MonoBehaviour
             scorePanel.DOLocalMoveY(43.00f, 0.1f).SetEase(Ease.InElastic).OnComplete(() =>
             {
                 scorePanel.DOShakePosition(duration: 1f, strength: 10f, vibrato: 10);
-               
+                if (particleNumber == 1)
+                {
+                    particles[0].SetActive(true);
+                    particles[1].SetActive(false);
+
+
+                }
+                else if (particleNumber == 2)
+                {
+                    particles[0].SetActive(false);
+                    particles[1].SetActive(true);
+
+                }
+
             });
 
         });
@@ -214,7 +219,7 @@ public class GameManager : MonoBehaviour
 
                     if (hitCount == target) 
                     {
-                       // AllItemHitResultPanel();
+                       
                         TimeManager.Instance.time = 1;
 
 

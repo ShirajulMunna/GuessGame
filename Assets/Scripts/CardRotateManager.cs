@@ -10,8 +10,11 @@ public class CardRotateManager : MonoBehaviour
 {
     public static CardRotateManager instance;
     public event EventHandler OnRotationFinished;
-    public Sprite[] frontCard;
-    public Sprite[] FrontCard_1;
+
+    public Sprite[] frontCard_9;
+    public Sprite[] frontCard_12;
+    public Sprite[] frontCard_16;
+
     public AudioManager audioManager;
     public List<GameObject> cards;  
     public List<int> shuffleValues = new List<int>();
@@ -27,19 +30,19 @@ public class CardRotateManager : MonoBehaviour
 
         if (gridNumber == 1)
         {
-            gridValue = 12;
+            gridValue = 9;
 
         }
         else if (gridNumber == 2)
         {
-            gridValue = 6;
+            gridValue = 12;
 
 
         }
 
         else if (gridNumber == 3) 
         {
-            gridValue = 4;
+            gridValue = 16;
         
         }
         instance = this;
@@ -66,11 +69,11 @@ public class CardRotateManager : MonoBehaviour
         {
             int suffleValue;
 
-            if (gridValue == 4)
+            if (gridValue == 9)
             {
-                suffleValue = Random.Range(0, frontCard.Length);
+                suffleValue = Random.Range(0, frontCard_9.Length);
 
-                if (!shuffleValues.Contains(suffleValue) && shuffleValues.Count<=7) 
+                if (!shuffleValues.Contains(suffleValue) && shuffleValues.Count<=3) 
                 {
                     shuffleValues.Add(suffleValue);
                     shuffleValues_2.Add(suffleValue);
@@ -79,10 +82,10 @@ public class CardRotateManager : MonoBehaviour
                 }
                 
             }
-            else if (gridValue == 6)
+            else if (gridValue == 12)
             {
-                suffleValue = Random.Range(0, frontCard.Length);
-                if (!shuffleValues.Contains(suffleValue) && shuffleValues.Count <= 8)
+                suffleValue = Random.Range(0, frontCard_12.Length);
+                if (!shuffleValues.Contains(suffleValue) && shuffleValues.Count <= 5)
                 {
                     shuffleValues.Add(suffleValue);
                     shuffleValues_2.Add(suffleValue);
@@ -92,10 +95,10 @@ public class CardRotateManager : MonoBehaviour
 
 
             }
-            else if(gridValue==12)
+            else if(gridValue==16)
             {
-                suffleValue = Random.Range(0, frontCard.Length);
-                if (!shuffleValues.Contains(suffleValue) && shuffleValues.Count <= 5)
+                suffleValue = Random.Range(0, frontCard_16.Length);
+                if (!shuffleValues.Contains(suffleValue) && shuffleValues.Count <= 7)
                 {
                     shuffleValues.Add(suffleValue);
                     shuffleValues_2.Add(suffleValue);
@@ -122,18 +125,24 @@ public class CardRotateManager : MonoBehaviour
             int cardValue = availAbleCardsNumber[randomIndex];
             availAbleCardsNumber.RemoveAt(randomIndex);
             int cardVal = mergeList[i];
-            if (gridValue == 4)
+            if (gridValue == 9)
             {
-                Debug.Log("grid entry 4");
-                cards[cardValue].GetComponent<Card>().faceSprite = FrontCard_1[cardVal];
+                
+                cards[cardValue].GetComponent<Card>().faceSprite = frontCard_9[cardVal];
 
             }
-            else 
+            else if (gridValue == 12)
             {
-                cards[cardValue].GetComponent<Card>().faceSprite = frontCard[cardVal];
+                cards[cardValue].GetComponent<Card>().faceSprite = frontCard_12[cardVal];
 
 
             }
+            else if (gridValue == 16) 
+            {
+                cards[cardValue].GetComponent<Card>().faceSprite = frontCard_16[cardVal];
+
+            }
+
 
         }
         StartCoroutine(RotateCard());
@@ -183,7 +192,7 @@ public class CardRotateManager : MonoBehaviour
             for (int j = 0; j < cards.Count; j++)
             {
                 
-                for (float i = 0f; i <= 180f; i += 10f)
+                for (float i = 0f; i <= 360f; i += 10f)
                 {
                     cards[j].transform.rotation = Quaternion.Euler(0f, i, 0f);
                    
