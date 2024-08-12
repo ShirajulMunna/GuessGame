@@ -11254,7 +11254,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 07831ded5c9c37448a1a6b74c385d365, type: 3}
   - {fileID: 21300000, guid: 270835413cb5fe2418ea512f800ceb12, type: 3}
   - {fileID: 21300000, guid: 2cc6890fc5b236342aa5fb1d358dcaac, type: 3}
-  naverLogo: {fileID: 21300000, guid: ad5c3159cce3fcc41b6f5c172c9f6a32, type: 3}
+  naver: {fileID: 21300000, guid: ad5c3159cce3fcc41b6f5c172c9f6a32, type: 3}
   audioManager: {fileID: 519420034}
   cards: []
   shuffleValues: 
@@ -11262,6 +11262,7 @@ MonoBehaviour:
   mergeList: 
   availAbleCardsNumber: 
   gridValue: 4
+  randomDummyNumber: 0
 --- !u!114 &1487750590
 MonoBehaviour:
   m_ObjectHideFlags: 0
