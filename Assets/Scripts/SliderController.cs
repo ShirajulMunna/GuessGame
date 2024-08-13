@@ -195,21 +195,21 @@ public class SliderController : MonoBehaviour
     }
     public void UpdateSliders(object sender , EventArgs e) 
     {
-        int timeValue= PlayerPrefs.GetInt("Time", 20);
+        int timeValue= PlayerPrefs.GetInt("Time", 15);
         int gridValue = PlayerPrefs.GetInt("Grid", 1);
-        int targetValue = PlayerPrefs.GetInt("Target", 8);
+        int targetValue = PlayerPrefs.GetInt("Target", 4);
         int particleValue = PlayerPrefs.GetInt("Particle", 1);
 
-        if (timeValue == 20)
+        if (timeValue == 15)
         {
             sliders[0].value = 1;
         }
-        else if (timeValue == 30)
+        else if (timeValue == 20)
         {
             sliders[0].value = 2;
 
         }
-        else if (timeValue == 40) 
+        else if (timeValue == 30) 
         {
             sliders[0].value = 3;
         
@@ -230,16 +230,16 @@ public class SliderController : MonoBehaviour
 
         }
 
-        if (gridValue == 8)
+        if (gridValue == 9)
         {
             sliders[2].value = 1;
         }
-        else if (gridValue == 9)
+        else if (gridValue == 12)
         {
             sliders[2].value = 2;
 
         }
-        else if (gridValue == 6)
+        else if (gridValue == 16)
         {
             sliders[2].value = 3;
 

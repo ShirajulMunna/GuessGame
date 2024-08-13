@@ -19,12 +19,14 @@ public class GameManager : MonoBehaviour
 
     public bool firstGuess, secondGuess;
     public bool isMatch,isGameStart;
+    public bool isAllMatched;
 
     public GameObject gameOverPanel, grid, ControllPanel;
     public GameObject fisrtObject, secondObject;
     public GameObject singleObject;
     public GameObject[] grids;
     public GameObject[] particles;
+    public List<GameObject> matchedObjects=new List<GameObject>();
 
     public string firstImageName, secondImageName;
     public string imageName;
@@ -36,7 +38,7 @@ public class GameManager : MonoBehaviour
     public int particleNumber;
 
 
-    public RectTransform gameOver,scorePanel;
+    public RectTransform gameOver,scorePanel,perfect;
     public TextMeshProUGUI myHitCountTxt,bestscore,myScoreGameOverUI,bestScoregameOverUI,targetTxt,targetGameOverUI;
     void Start()
     {
@@ -68,6 +70,7 @@ public class GameManager : MonoBehaviour
         particleNumber = PlayerPrefs.GetInt("particle", 1);
         targetTxt.text=PlayerPrefs.GetInt("Target",target_1).ToString();
         targetGameOverUI.text=PlayerPrefs.GetInt("Target",target_1).ToString() ;
+        target = PlayerPrefs.GetInt("Target", 4);
         GetComponent<TimeManager>().OnTimeStopped += OpenResultPanel;
         OnCheckComplete += BooleanReset;
     }
@@ -104,10 +107,21 @@ public class GameManager : MonoBehaviour
     }
     public void OpenResultPanel(object sender, EventArgs e) 
     {
-     
+        if (isAllMatched) 
+        {
+            
+            gameOver = perfect;
+
+
+
+        }
 
         Debug.Log("Game time finished");
+      
         AudioManager.instance.GameOver();
+
+
+        
         CardRotateManager.instance.EnableCardCollider(false);
         
         gameOver.DOLocalMoveX(4.00f, 0.1f).SetEase(Ease.InElastic).OnComplete(() =>
@@ -125,7 +139,7 @@ public class GameManager : MonoBehaviour
     }
     public void AfterStartAnim()
     {
-        gameOver.DOLocalMoveX(1000f, 0.1f).SetEase(Ease.InElastic).OnComplete(() =>
+        gameOver.DOLocalMoveX(1500f, 0.1f).SetEase(Ease.InElastic).OnComplete(() =>
         {
             AudioManager.instance.GameStart(0);
 
@@ -204,7 +218,6 @@ public class GameManager : MonoBehaviour
                         bestScoregameOverUI.text = PlayerPrefs.GetInt("Best_Score", 0).ToString();
 
 
-
                     }
                     else if (bestScore == hitCount) 
                     {
@@ -218,15 +231,18 @@ public class GameManager : MonoBehaviour
 
                     if (hitCount == target) 
                     {
-                       
+                        isAllMatched = true;
                         TimeManager.Instance.time = 1;
 
 
                     }
 
                   
-                    fisrtObject.GetComponent<BoxCollider2D>().enabled = false;
-                    secondObject.GetComponent<BoxCollider2D>().enabled = false;
+                   /* fisrtObject.GetComponent<BoxCollider2D>().enabled = false;
+                    secondObject.GetComponent<BoxCollider2D>().enabled = false;*/
+                    matchedObjects.Add(fisrtObject);
+                    matchedObjects.Add(secondObject);
+                    DeactivateMatchObjects();
                     AudioManager.instance.MatchSound();
 
                 }
@@ -246,6 +262,16 @@ public class GameManager : MonoBehaviour
             }          
         }     
 
+    }
+
+    public void DeactivateMatchObjects() 
+    {
+        for (int i = 0; i < matchedObjects.Count; i++) 
+        {
+            matchedObjects[i].GetComponent<BoxCollider2D>().enabled = false;
+        
+        }
+    
     }
     public IEnumerator UnmatchedRotate(bool isFaceUp)
     {

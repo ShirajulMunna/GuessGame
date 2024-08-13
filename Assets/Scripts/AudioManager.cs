@@ -16,6 +16,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip matchSound;
     public AudioClip gameOver;
     public AudioClip[] gameStart;
+    public AudioClip perfectSound;
     public bool isClosingTimeStarted=true;
     void Start()
     {
@@ -83,6 +84,12 @@ public class AudioManager : MonoBehaviour
     public void GameOver() 
     {
         m_AudioSource.PlayOneShot(gameOver);
+    
+    }
+
+    public void Perfect() 
+    {
+        m_AudioSource.PlayOneShot(perfectSound);
     
     }
 

@@ -88,12 +88,10 @@ public class CardRotateManager : MonoBehaviour
                     {
                         dummyCard = card[i];
 
-                    }
-                 
+                    }                
 
                 }
                            
-
             }
 
             for (int i = 0; i < dummy.Count; i++) 
@@ -130,7 +128,9 @@ public class CardRotateManager : MonoBehaviour
                 dummyCard.GetComponent<Card>().faceSprite = naver;
 
             }
-            StartCoroutine(RotateCard());
+            StartCoroutine(RotateDummyCard());
+
+            StartCoroutine( RotateDummySingleCard());
 
         }
         else if (gridValue == 12)
@@ -215,6 +215,147 @@ public class CardRotateManager : MonoBehaviour
        
     }
 
+    private IEnumerator RotateDummySingleCard()
+    {
+        yield return new WaitForSeconds(1f);
+
+        coroutineAllowed = false;
+
+        if (!facedUp)
+        {
+                    
+                
+
+                for (float i = 0f; i <= 360f; i += 10f)
+                {
+                    
+                    dummyCard.transform.rotation = Quaternion.Euler(0f, i, 0f);
+
+                    if (i == 90f)
+                    {
+                         dummyCard.GetComponent<SpriteRenderer>().sprite = dummyCard.GetComponent<Card>().faceSprite;
+
+                       
+                    }
+                    yield return new WaitForSeconds(0.00001f);
+                }
+
+          
+
+
+        }
+      
+
+    }
+
+   public IEnumerator RotateDummySingleBackward()
+    {
+        yield return new WaitForSeconds(1);
+
+        if (facedUp)
+        {
+        
+
+                for (float i = 0f; i <=360f; i += 10f)
+                {
+                    dummyCard.transform.rotation = Quaternion.Euler(0f, i, 0f);
+                 
+                     Debug.Log("dsfssfsfsfsfsfsfsfsfsfs");
+
+                    if (i == 90f)
+                    {
+                       dummyCard.GetComponent<SpriteRenderer>().sprite = dummyCard.GetComponent<Card>().backSprite;
+
+                    
+                    }
+                 
+
+
+            }
+
+
+        }
+
+        coroutineAllowed = true;
+        
+
+
+    }
+
+    private IEnumerator RotateDummyCard()
+    {
+        yield return new WaitForSeconds(1f);
+
+        coroutineAllowed = false;
+
+        if (!facedUp)
+        {
+
+            for (int j = 0; j < dummy.Count; j++)
+            {
+                AudioManager.instance.SingleCardClick();
+
+                for (float i = 0f; i <= 180f; i += 10f)
+                {
+                    dummy[j].transform.rotation = Quaternion.Euler(0f, i, 0f);
+                    
+
+                    if (i == 90f)
+                    {
+
+                        dummy[j].GetComponent<SpriteRenderer>().sprite = dummy[j].GetComponent<Card>().faceSprite;
+                    }
+                    yield return new WaitForSeconds(0.00001f);
+                }
+
+
+
+            }
+
+
+        }
+       facedUp = !facedUp;
+        StartCoroutine(RotateDummySingleBackward());
+
+        StartCoroutine(RotateDummyBackward());
+
+
+    }
+
+    IEnumerator RotateDummyBackward()
+    {
+        yield return new WaitForSeconds(1);
+
+        if (facedUp)
+        {
+
+            for (int j = 0; j < dummy.Count; j++)
+            {
+
+                for (float i = 0f; i <= 360f; i += 10f)
+                {
+                    dummy[j].transform.rotation = Quaternion.Euler(0f, i, 0f);
+
+                    if (i == 90f)
+                    {
+
+                        dummy[j].GetComponent<SpriteRenderer>().sprite = dummy[j].GetComponent<Card>().backSprite;
+                    }
+                    
+
+                }
+
+            }
+        }
+
+        coroutineAllowed = true;
+
+        facedUp = !facedUp;
+        OnRotationFinished?.Invoke(this, EventArgs.Empty);
+
+
+    }
+
     private IEnumerator RotateCard() 
     {
         yield return new WaitForSeconds(1f);
@@ -228,7 +369,7 @@ public class CardRotateManager : MonoBehaviour
             {
                 AudioManager.instance.SingleCardClick();
 
-                for (float i = 0f; i <= 360f; i += 10f)
+                for (float i = 0f; i <= 180f; i += 10f)
                 {
                     cards[j].transform.rotation = Quaternion.Euler(0f, i, 0f);
                     if (i == 90f)
@@ -266,7 +407,7 @@ public class CardRotateManager : MonoBehaviour
 
                         cards[j].GetComponent<SpriteRenderer>().sprite = cards[j].GetComponent<Card>().backSprite;
                     }
-                   // yield return new WaitForSeconds(0.00001f);
+                   
 
                 }
 

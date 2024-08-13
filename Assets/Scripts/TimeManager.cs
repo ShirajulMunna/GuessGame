@@ -58,7 +58,7 @@ public class TimeManager : MonoBehaviour
     }
     public void AfterStartAnimFinish()
     {
-        ready.DOLocalMoveX(1000f, 0.1f).SetEase(Ease.InBounce).OnComplete(() => {
+        ready.DOLocalMoveX(1500f, 0.1f).SetEase(Ease.InBounce).OnComplete(() => {
 
             start.DOLocalMoveX(4.00f, 0.1f).SetEase(Ease.InElastic).OnComplete(() =>
             {
