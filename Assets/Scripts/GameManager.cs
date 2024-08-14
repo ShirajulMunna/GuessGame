@@ -124,7 +124,7 @@ public class GameManager : MonoBehaviour
         
         CardRotateManager.instance.EnableCardCollider(false);
         
-        gameOver.DOLocalMoveX(4.00f, 0.1f).SetEase(Ease.InElastic).OnComplete(() =>
+        gameOver.DOLocalMoveX(4.00f, 0.2f).SetEase(Ease.InElastic).OnComplete(() =>
         {
             gameOver.DOShakePosition(duration: 1f, strength: 10f, vibrato: 10).OnComplete(() =>
             {
@@ -139,7 +139,7 @@ public class GameManager : MonoBehaviour
     }
     public void AfterStartAnim()
     {
-        gameOver.DOLocalMoveX(1500f, 0.1f).SetEase(Ease.InElastic).OnComplete(() =>
+        gameOver.DOLocalMoveX(1500f, 0.2f).SetEase(Ease.InElastic).OnComplete(() =>
         {
             AudioManager.instance.GameStart(0);
 
