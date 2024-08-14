@@ -38,7 +38,7 @@ public class TimeManager : MonoBehaviour
     public void StartCoundown(object sender,EventArgs e)
     {
         AudioManager.instance.BackGroundSoundOff();
-        ready.DOLocalMoveY(43.00f, 0.1f).SetEase(Ease.InElastic).OnComplete(() =>
+        ready.DOLocalMoveY(-39.00f, 0.1f).SetEase(Ease.InElastic).OnComplete(() =>
         {
             AudioManager.instance.GameStart(0);
 
